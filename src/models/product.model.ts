@@ -1,8 +1,16 @@
  
 import prisma from '../config/database';
 import { Product } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 
-export const createProduct = async (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => {
+// export const createProduct = async (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => {
+//   return await prisma.product.create({
+//     data: productData,
+//   });
+// };
+
+
+export const createProduct = async (productData: Prisma.ProductCreateInput) => {
   return await prisma.product.create({
     data: productData,
   });

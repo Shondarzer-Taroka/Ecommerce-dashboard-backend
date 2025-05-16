@@ -1,8 +1,14 @@
- 
 import prisma from '../config/database';
-import { User, Role } from '@prisma/client';
+import { User, Role, Prisma } from '@prisma/client';
 
-export const createUser = async (userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>) => {
+// export const createUser = async (userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>) => {
+//   return await prisma.user.create({
+//     data: userData,
+//   });
+// };
+
+
+export const createUser = async (userData: Prisma.UserCreateInput) => {
   return await prisma.user.create({
     data: userData,
   });
