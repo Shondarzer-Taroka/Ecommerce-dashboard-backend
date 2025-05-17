@@ -13,7 +13,11 @@ export const getDashboardStats = async () => {
     orderBy: { createdAt: 'desc' },
     include: {
       user: true,
-      products: true,
+      items: {
+        include: {
+          product: true,
+        },
+      },
     },
   });
 

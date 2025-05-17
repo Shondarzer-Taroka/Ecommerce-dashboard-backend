@@ -1,24 +1,27 @@
+// src/models/user.model.ts
 import prisma from '../config/database';
-import { User, Role, Prisma } from '@prisma/client';
+import bcrypt from 'bcrypt';
+import { User, Role } from '@prisma/client';
 
-// export const createUser = async (userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>) => {
-//   return await prisma.user.create({
-//     data: userData,
-//   });
-// };
-
-
-export const createUser = async (userData: Prisma.UserCreateInput) => {
-  return await prisma.user.create({
-    data: userData,
+export const createUser = async (userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
+  return prisma.user.create({
+    data: {
+      ...userData,
+      password: hashedPassword
+    }
   });
 };
 
 export const findUserByEmail = async (email: string) => {
-  return await prisma.user.findUnique({
-    where: { email },
-  });
+  return prisma.user.findUnique({ where: { email } });
 };
+
+// export const findUserByEmail = async (email: string) => {
+//   return await prisma.user.findUnique({
+//     where: { email },
+//   });
+// };
 
 export const getAllUsers = async () => {
   return await prisma.user.findMany();

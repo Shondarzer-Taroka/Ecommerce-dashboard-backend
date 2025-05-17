@@ -7,7 +7,7 @@ export const createOrder = async (req: Request, res: Response) => {
   try {
     const order = await orderService.createOrder({
       userId: req.body.userId,
-      productIds: req.body.productIds,
+      items: req.body.items, // ✅ FIXED HERE
       total: req.body.total,
       status: req.body.status,
     });
@@ -16,6 +16,7 @@ export const createOrder = async (req: Request, res: Response) => {
     handleError(res, error);
   }
 };
+
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {

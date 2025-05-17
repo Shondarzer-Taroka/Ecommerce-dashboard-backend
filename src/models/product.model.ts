@@ -3,6 +3,15 @@ import prisma from '../config/database';
 import { Product } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 
+
+
+// src/models/product.model.ts
+
+
+export const createProduct = async (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => {
+  return prisma.product.create({ data: productData });
+};
+
 // export const createProduct = async (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => {
 //   return await prisma.product.create({
 //     data: productData,
@@ -10,11 +19,11 @@ import { Prisma } from '@prisma/client';
 // };
 
 
-export const createProduct = async (productData: Prisma.ProductCreateInput) => {
-  return await prisma.product.create({
-    data: productData,
-  });
-};
+// export const createProduct = async (productData: Prisma.ProductCreateInput) => {
+//   return await prisma.product.create({
+//     data: productData,
+//   });
+// };
 
 export const getAllProducts = async () => {
   return await prisma.product.findMany();
